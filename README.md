@@ -1,0 +1,2 @@
+# Li-Fi-Based-Vehicle-to-Vehicle-V2V-Communication-and-Accident-Alert-System
+Designed and implemented a Li-Fi based vehicle-to-vehicle communication system using Arduino Uno for real-time transmission of safety messages through visible light. Integrated ultrasonic sensing and an LCD display, and validated reliable communication through embedded programming, hardware prototyping, and experimental testing.
