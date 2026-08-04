@@ -1,0 +1,51 @@
+#define LASERPIN 7 
+const int buttonPin1 = 2;
+const int buttonPin2 = 3;
+const int buttonPin3 = 4;
+const int buttonPin4 = 5;
+const int trigPin = 9;
+const int echoPin = 10;
+long duration;
+int distance;
+int button1 = 0;
+int button2 = 0;
+int button3 = 0;
+int button4 = 0;
+char message1[]="hi how are you?\n";
+char message2[]="Emergency! Please let me through\n";
+char message3[]="Ambulance behind!\n";
+char message4[]="Help! caught in fire!\n"; 
+char message5[]="Alert! vehicle too close\n"; 
+void setup() {
+  // put your setup code here, to run once:
+  pinMode (LASERPIN, OUTPUT) ;
+  pinMode(buttonPin1, INPUT);
+  pinMode(buttonPin2, INPUT);
+  pinMode(buttonPin3, INPUT);
+  pinMode(buttonPin4, INPUT);
+  pinMode(trigPin, OUTPUT); 
+  pinMode(echoPin, INPUT);
+  Serial.begin(9600);
+
+}
+
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  dis();
+  if(distance<15){transmit(message5);}
+  button();
+  if (button1 == HIGH) {
+    transmit(message1);
+  } 
+  if (button2 == HIGH) {
+    transmit(message2);
+  } 
+  if (button3 == HIGH) {
+    transmit(message3);
+  } 
+  if (button4 == HIGH) {
+    transmit(message4);
+  } 
+  
+}

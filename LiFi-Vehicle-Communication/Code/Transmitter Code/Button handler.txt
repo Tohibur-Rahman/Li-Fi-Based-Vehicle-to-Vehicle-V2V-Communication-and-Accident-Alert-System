@@ -1,0 +1,6 @@
+void button(){
+  button1 = digitalRead(buttonPin1);
+  button2 = digitalRead(buttonPin2);
+  button3 = digitalRead(buttonPin3);
+  button4 = digitalRead(buttonPin4);
+}

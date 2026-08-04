@@ -1,0 +1,62 @@
+#define SOLARPIN A0
+#define THRESHOLD 10
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+#define BUZZER_PIN  3
+LiquidCrystal_I2C lcd(0x3F, 16, 2);
+int ctr=0;
+int f;
+
+int ambientReading = 0;
+
+
+
+void setup() {
+  lcd.begin();
+
+	// Turn on the blacklight and print a message.
+	lcd.backlight();
+  pinMode(SOLARPIN, INPUT);
+  pinMode(BUZZER_PIN, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+
+  int reading = analogRead(SOLARPIN);
+  // Serial.println(reading);
+  digitalWrite(BUZZER_PIN, LOW);
+  int bits[8];
+
+  //Listening for the start bit
+  if (reading > THRESHOLD) {
+    digitalWrite(BUZZER_PIN, HIGH);
+    delay(2);
+    if(f==1){lcd.clear(); f=0; ctr=0;}
+    for (int i =0; i<8 ; i++) {
+      if (analogRead(SOLARPIN) > THRESHOLD) {
+        bits[i] = 1 ;
+      }
+      else {
+        bits[i] = 0;
+      }
+      delay(10);
+    }
+
+    int m = 0;
+    for (int j =1; j <8; j++) {
+    if (bits[j] ==1) {
+      m = m + (1<<(7-j));
+    }
+    }
+  
+    char n=m;
+    // Serial.print(n);
+    lcd.print(n);
+    if(m==10){f=1;}
+    ctr++;
+    if(ctr==16){lcd.setCursor(0, 1); ctr=0;}
+
+  
+  }
+}
